@@ -1,0 +1,11 @@
+{
+  "name": "shopping-basket",
+  "version": "1.0.0",
+  "description": "A simple shopping basket application",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "author": "Philip Morris",
+  "license": "ISC"
+}
