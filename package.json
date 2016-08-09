@@ -4,7 +4,8 @@
   "description": "A simple shopping basket application",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test"
+    "test": "./run-acceptance-tests.sh",
+    "web": "PORT=3000 node ./web/index.js"
   },
   "author": "Philip Morris",
   "license": "ISC"

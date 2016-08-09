@@ -1,0 +1,12 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "A simple shopping basket web interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test",
+    "web": "node index.js"
+  },
+  "author": "Philip Morris",
+  "license": "ISC"
+}

@@ -1,0 +1,16 @@
+acceptance:
+  build: .
+  links:
+    - web
+  volumes:
+    - .:/app
+  command: npm test
+
+web:
+  build: ../web/
+  environment:
+    - PORT=80
+  volumes:
+    - ../web:/app
+  command: node index.js
+
