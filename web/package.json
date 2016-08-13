@@ -8,5 +8,9 @@
     "web": "node index.js"
   },
   "author": "Philip Morris",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.1",
+    "express": "^4.14.0"
+  }
 }

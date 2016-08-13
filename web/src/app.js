@@ -1,7 +1,14 @@
-const http = require('http')
+const path = require('path');
+const express = require('express');
+const app = express();
 
-const app = http.createServer((req, res) => {
-    res.end('<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Shopping Basket</title></head></html>');
+app.use('/assets', express.static(path.join(__dirname, './assets')));
+
+app.set('views', path.join(__dirname, './views'));
+app.set('view engine', 'ejs');
+
+app.get('/', function (req, res) {
+    res.render('index');
 });
 
 module.exports = app;

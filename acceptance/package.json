@@ -9,6 +9,7 @@
   "author": "Philip Morris",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^3.5.0",
     "mocha": "^3.0.2",
     "zombie": "^4.2.1"
   }
