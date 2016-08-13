@@ -4,13 +4,16 @@
   "description": "A simple shopping basket application",
   "main": "index.js",
   "scripts": {
-    "test": "semistandard && ./run-acceptance-tests.sh",
+    "test": "./run-acceptance-tests.sh",
+    "pretest": "npm run build",
+    "build": "semistandard && webpack",
     "web": "PORT=3000 node ./web/index.js"
   },
   "author": "Philip Morris",
   "license": "ISC",
   "devDependencies": {
-    "semistandard": "^8.0.0"
+    "semistandard": "^8.0.0",
+    "webpack": "^1.13.1"
   },
   "semistandard": {
     "ignore": [

@@ -28,4 +28,14 @@ describe('User visiting the shopping basket page', () => {
       done();
     });
   });
+
+  it('loads javascript', (done) => {
+    expect(browser.resources.length).to.equal(2);
+    browser.resources.forEach(resource => {
+      if (resource.url === 'http://web/assets/js/bundle.js') {
+        expect(resource.response.status).to.equal(200);
+        done();
+      }
+    });
+  });
 });
