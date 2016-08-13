@@ -4,9 +4,17 @@
   "description": "A simple shopping basket application",
   "main": "index.js",
   "scripts": {
-    "test": "./run-acceptance-tests.sh",
+    "test": "semistandard && ./run-acceptance-tests.sh",
     "web": "PORT=3000 node ./web/index.js"
   },
   "author": "Philip Morris",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "semistandard": "^8.0.0"
+  },
+  "semistandard": {
+    "ignore": [
+      "node_modules"
+    ]
+  }
 }
