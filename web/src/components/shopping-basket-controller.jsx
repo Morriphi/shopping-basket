@@ -1,4 +1,5 @@
 const React = require('react');
+const Total = require('./total');
 const Product = require('./product');
 const Divider = require('./divider');
 const BasketItem = require('./basket-item');
@@ -30,10 +31,7 @@ const Application = React.createClass({
         </div>
       </div>
       <Divider />
-      <div className='row'>
-        <div className='col-md-12'>
-          <h2 className='text-nowrap text-right'>Total: £1.95</h2></div>
-      </div>
+      <Total value={195} />
     </div>);
   }
 });

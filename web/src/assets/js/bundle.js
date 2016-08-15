@@ -21465,9 +21465,10 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Product = __webpack_require__(176);
-	var Divider = __webpack_require__(181);
-	var BasketItem = __webpack_require__(182);
+	var Total = __webpack_require__(176);
+	var Product = __webpack_require__(178);
+	var Divider = __webpack_require__(182);
+	var BasketItem = __webpack_require__(183);
 
 	var Application = React.createClass({
 	  displayName: 'Application',
@@ -21525,19 +21526,7 @@
 	        )
 	      ),
 	      React.createElement(Divider, null),
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        React.createElement(
-	          'div',
-	          { className: 'col-md-12' },
-	          React.createElement(
-	            'h2',
-	            { className: 'text-nowrap text-right' },
-	            'Total: £1.95'
-	          )
-	        )
-	      )
+	      React.createElement(Total, { value: 195 })
 	    );
 	  }
 	});
@@ -21551,9 +21540,41 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var AddButton = __webpack_require__(177);
-	var Currency = __webpack_require__(178);
-	var humanize = __webpack_require__(179);
+	var Currency = __webpack_require__(177);
+
+	module.exports = function (props) {
+	  return React.createElement(
+	    'div',
+	    { className: 'row' },
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-12' },
+	      React.createElement(
+	        'h2',
+	        { className: 'text-nowrap text-right' },
+	        'Total: ',
+	        React.createElement(Currency, { symbol: '£', value: props.value })
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports=function(r){function t(n){if(e[n])return e[n].exports;var o=e[n]={exports:{},id:n,loaded:!1};return r[n].call(o.exports,o,o.exports,t),o.loaded=!0,o.exports}var e={};return t.m=r,t.c=e,t.p="",t(0)}([function(r,t,e){"use strict";var n=e(1),o=function(r){return Number(r)<0?"#FF0000":"#000000"};r.exports=function(r){var t=r.value,e=r.symbol,i=void 0===e?"$":e;return n.createElement("span",{style:{color:o(t)}},i+(isNaN(t)?"0.00":new Intl.NumberFormat("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(t)/100)))}},function(r,t){r.exports=__webpack_require__(1)}]);
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var AddButton = __webpack_require__(179);
+	var Currency = __webpack_require__(177);
+	var humanize = __webpack_require__(180);
 
 	module.exports = function (props) {
 	  return React.createElement(
@@ -21586,7 +21607,7 @@
 	};
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21604,17 +21625,11 @@
 	};
 
 /***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports=function(r){function t(n){if(e[n])return e[n].exports;var o=e[n]={exports:{},id:n,loaded:!1};return r[n].call(o.exports,o,o.exports,t),o.loaded=!0,o.exports}var e={};return t.m=r,t.c=e,t.p="",t(0)}([function(r,t,e){"use strict";var n=e(1),o=function(r){return Number(r)<0?"#FF0000":"#000000"};r.exports=function(r){var t=r.value,e=r.symbol,i=void 0===e?"$":e;return n.createElement("span",{style:{color:o(t)}},i+(isNaN(t)?"0.00":new Intl.NumberFormat("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(t)/100)))}},function(r,t){r.exports=__webpack_require__(1)}]);
-
-/***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	const capitalize = __webpack_require__(180)
+	const capitalize = __webpack_require__(181)
 
 	module.exports = humanize
 
@@ -21647,7 +21662,7 @@
 
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports) {
 
 	
@@ -21666,7 +21681,7 @@
 
 
 /***/ },
-/* 181 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21686,14 +21701,14 @@
 	};
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var humanize = __webpack_require__(179);
-	var DeleteButton = __webpack_require__(183);
+	var humanize = __webpack_require__(180);
+	var DeleteButton = __webpack_require__(184);
 
 	module.exports = function (props) {
 	  return React.createElement(
@@ -21726,7 +21741,7 @@
 	};
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
