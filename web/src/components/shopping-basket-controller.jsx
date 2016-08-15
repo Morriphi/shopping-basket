@@ -1,4 +1,6 @@
 const React = require('react');
+const DeleteButton = require('./delete-button');
+const AddButton = require('./add-button');
 
 const Application = React.createClass({
   render () {
@@ -19,8 +21,7 @@ const Application = React.createClass({
             <div className='col-md-4'>
               <h3>£1.95 </h3></div>
             <div className='col-md-2'>
-              <button className='btn btn-primary btn-lg' type='button'><i
-                className='glyphicon glyphicon-shopping-cart'></i></button>
+              <AddButton />
             </div>
           </div>
           <div className='row'>
@@ -34,8 +35,7 @@ const Application = React.createClass({
             <div className='col-md-4'>
               <h3>£0.80</h3></div>
             <div className='col-md-2'>
-              <button className='btn btn-primary btn-lg' type='button'><i
-                className='glyphicon glyphicon-shopping-cart'></i></button>
+              <AddButton />
             </div>
           </div>
           <div className='row'>
@@ -49,8 +49,7 @@ const Application = React.createClass({
             <div className='col-md-4'>
               <h3>£1.20 </h3></div>
             <div className='col-md-2'>
-              <button className='btn btn-primary btn-lg' type='button'><i
-                className='glyphicon glyphicon-shopping-cart'></i></button>
+              <AddButton />
             </div>
           </div>
         </div>
@@ -62,8 +61,7 @@ const Application = React.createClass({
             <div className='col-md-4'>
               <h3>1 </h3></div>
             <div className='col-md-2'>
-              <button className='btn btn-danger btn-lg' type='button'><i className='glyphicon glyphicon-trash'></i>
-              </button>
+              <DeleteButton />
             </div>
           </div>
           <div className='row'>
@@ -77,8 +75,7 @@ const Application = React.createClass({
             <div className='col-md-4'>
               <h3>2 </h3></div>
             <div className='col-md-2'>
-              <button className='btn btn-danger btn-lg' type='button'><i className='glyphicon glyphicon-trash'></i>
-              </button>
+              <DeleteButton />
             </div>
           </div>
         </div>

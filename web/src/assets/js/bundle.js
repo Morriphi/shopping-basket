@@ -21465,6 +21465,8 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var DeleteButton = __webpack_require__(176);
+	var AddButton = __webpack_require__(177);
 
 	var Application = React.createClass({
 	  displayName: 'Application',
@@ -21525,12 +21527,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'col-md-2' },
-	              React.createElement(
-	                'button',
-	                { className: 'btn btn-primary btn-lg', type: 'button' },
-	                React.createElement('i', {
-	                  className: 'glyphicon glyphicon-shopping-cart' })
-	              )
+	              React.createElement(AddButton, null)
 	            )
 	          ),
 	          React.createElement(
@@ -21566,12 +21563,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'col-md-2' },
-	              React.createElement(
-	                'button',
-	                { className: 'btn btn-primary btn-lg', type: 'button' },
-	                React.createElement('i', {
-	                  className: 'glyphicon glyphicon-shopping-cart' })
-	              )
+	              React.createElement(AddButton, null)
 	            )
 	          ),
 	          React.createElement(
@@ -21607,12 +21599,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'col-md-2' },
-	              React.createElement(
-	                'button',
-	                { className: 'btn btn-primary btn-lg', type: 'button' },
-	                React.createElement('i', {
-	                  className: 'glyphicon glyphicon-shopping-cart' })
-	              )
+	              React.createElement(AddButton, null)
 	            )
 	          )
 	        ),
@@ -21649,11 +21636,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'col-md-2' },
-	              React.createElement(
-	                'button',
-	                { className: 'btn btn-danger btn-lg', type: 'button' },
-	                React.createElement('i', { className: 'glyphicon glyphicon-trash' })
-	              )
+	              React.createElement(DeleteButton, null)
 	            )
 	          ),
 	          React.createElement(
@@ -21689,11 +21672,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'col-md-2' },
-	              React.createElement(
-	                'button',
-	                { className: 'btn btn-danger btn-lg', type: 'button' },
-	                React.createElement('i', { className: 'glyphicon glyphicon-trash' })
-	              )
+	              React.createElement(DeleteButton, null)
 	            )
 	          )
 	        )
@@ -21725,6 +21704,42 @@
 	});
 
 	module.exports = Application;
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(1);
+
+	module.exports = function (props) {
+	  return React.createElement(
+	    'button',
+	    _extends({ className: 'btn btn-danger btn-lg', type: 'button' }, props),
+	    React.createElement('i', { className: 'glyphicon glyphicon-trash' })
+	  );
+	};
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(1);
+
+	module.exports = function (props) {
+	  return React.createElement(
+	    'button',
+	    _extends({ className: 'btn btn-primary btn-lg', type: 'button' }, props),
+	    React.createElement('i', { className: 'glyphicon glyphicon-shopping-cart' })
+	  );
+	};
 
 /***/ }
 /******/ ]);
