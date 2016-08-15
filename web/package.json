@@ -16,7 +16,9 @@
     "ejs": "^2.5.1",
     "express": "^4.14.0",
     "react": "^15.3.0",
-    "react-dom": "^15.3.0"
+    "react-currency": "^2.0.0",
+    "react-dom": "^15.3.0",
+    "string-humanize": "^1.0.0"
   },
   "devDependencies": {
     "react": "^15.2.0"

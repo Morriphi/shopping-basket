@@ -21465,8 +21465,9 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var DeleteButton = __webpack_require__(176);
-	var AddButton = __webpack_require__(177);
+	var Product = __webpack_require__(176);
+	var Divider = __webpack_require__(181);
+	var BasketItem = __webpack_require__(182);
 
 	var Application = React.createClass({
 	  displayName: 'Application',
@@ -21503,105 +21504,11 @@
 	            React.createElement('i', { className: 'glyphicon glyphicon-apple' }),
 	            ' Products'
 	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-6' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                'Milk '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-4' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                '£1.95 '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-2' },
-	              React.createElement(AddButton, null)
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-12' },
-	              React.createElement('hr', null)
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-6' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                'Bread'
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-4' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                '£0.80'
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-2' },
-	              React.createElement(AddButton, null)
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-12' },
-	              React.createElement('hr', null)
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-6' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                'Butter '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-4' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                '£1.20 '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-2' },
-	              React.createElement(AddButton, null)
-	            )
-	          )
+	          React.createElement(Product, { name: 'Milk', price: 80 }),
+	          React.createElement(Divider, null),
+	          React.createElement(Product, { name: 'Bread', price: 140 }),
+	          React.createElement(Divider, null),
+	          React.createElement(Product, { name: 'Butter', price: 200 })
 	        ),
 	        React.createElement(
 	          'div',
@@ -21612,80 +21519,12 @@
 	            React.createElement('i', { className: 'glyphicon glyphicon-shopping-cart' }),
 	            ' Basket'
 	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-6' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                'Milk '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-4' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                '1 '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-2' },
-	              React.createElement(DeleteButton, null)
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-12' },
-	              React.createElement('hr', null)
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-6' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                'Butter '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-4' },
-	              React.createElement(
-	                'h3',
-	                null,
-	                '2 '
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'col-md-2' },
-	              React.createElement(DeleteButton, null)
-	            )
-	          )
+	          React.createElement(BasketItem, { name: 'Milk', quantity: 1 }),
+	          React.createElement(Divider, null),
+	          React.createElement(BasketItem, { name: 'Butter', quantity: 2 })
 	        )
 	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        React.createElement(
-	          'div',
-	          { className: 'col-md-12' },
-	          React.createElement('hr', null)
-	        )
-	      ),
+	      React.createElement(Divider, null),
 	      React.createElement(
 	        'div',
 	        { className: 'row' },
@@ -21711,15 +21550,38 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var React = __webpack_require__(1);
+	var AddButton = __webpack_require__(177);
+	var Currency = __webpack_require__(178);
+	var humanize = __webpack_require__(179);
 
 	module.exports = function (props) {
 	  return React.createElement(
-	    'button',
-	    _extends({ className: 'btn btn-danger btn-lg', type: 'button' }, props),
-	    React.createElement('i', { className: 'glyphicon glyphicon-trash' })
+	    'div',
+	    { className: 'row' },
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-6' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        humanize(props.name)
+	      )
+	    ),
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-4' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        React.createElement(Currency, { symbol: '£', value: props.price })
+	      )
+	    ),
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-2' },
+	      React.createElement(AddButton, null)
+	    )
 	  );
 	};
 
@@ -21738,6 +21600,146 @@
 	    'button',
 	    _extends({ className: 'btn btn-primary btn-lg', type: 'button' }, props),
 	    React.createElement('i', { className: 'glyphicon glyphicon-shopping-cart' })
+	  );
+	};
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports=function(r){function t(n){if(e[n])return e[n].exports;var o=e[n]={exports:{},id:n,loaded:!1};return r[n].call(o.exports,o,o.exports,t),o.loaded=!0,o.exports}var e={};return t.m=r,t.c=e,t.p="",t(0)}([function(r,t,e){"use strict";var n=e(1),o=function(r){return Number(r)<0?"#FF0000":"#000000"};r.exports=function(r){var t=r.value,e=r.symbol,i=void 0===e?"$":e;return n.createElement("span",{style:{color:o(t)}},i+(isNaN(t)?"0.00":new Intl.NumberFormat("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(t)/100)))}},function(r,t){r.exports=__webpack_require__(1)}]);
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	const capitalize = __webpack_require__(180)
+
+	module.exports = humanize
+
+	function humanize(string){
+	  string = string || ''
+	  string = string.toString() // might be a number
+	  string = string.trim()
+	  string = string.replace(extname(string), '')
+	  string = underscore(string)
+	  string = string.replace(/[\W_]+/g, ' ')
+	  return capitalize(string)
+	}
+
+
+	function underscore(string){
+	  string = string || ''
+	  string = string.toString() // might be a number
+	  string = string.trim()
+	  string = string.replace(/([a-z\d])([A-Z]+)/g, '$1_$2')
+	  string = string.replace(/[-\s]+/g, '_').toLowerCase()
+	  return string
+	}
+
+	function extname(string){
+	  var index = string.lastIndexOf('.')
+	    , ext = string.substring(index, string.length)
+
+	  return (index === -1) ? '' : ext
+	}
+
+
+/***/ },
+/* 180 */
+/***/ function(module, exports) {
+
+	
+	module.exports = capitalize
+
+	function capitalize(string){
+	  string = string || ''
+	  string = string.trim()
+
+	  if (string[0]) {
+	    string = string[0].toUpperCase() + string.substr(1).toLowerCase()
+	  }
+
+	  return string
+	}
+
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	module.exports = function () {
+	  return React.createElement(
+	    'div',
+	    { className: 'row' },
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-12' },
+	      React.createElement('hr', null)
+	    )
+	  );
+	};
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var humanize = __webpack_require__(179);
+	var DeleteButton = __webpack_require__(183);
+
+	module.exports = function (props) {
+	  return React.createElement(
+	    'div',
+	    { className: 'row' },
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-6' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        humanize(props.name)
+	      )
+	    ),
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-4' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        props.quantity
+	      )
+	    ),
+	    React.createElement(
+	      'div',
+	      { className: 'col-md-2' },
+	      React.createElement(DeleteButton, null)
+	    )
+	  );
+	};
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(1);
+
+	module.exports = function (props) {
+	  return React.createElement(
+	    'button',
+	    _extends({ className: 'btn btn-danger btn-lg', type: 'button' }, props),
+	    React.createElement('i', { className: 'glyphicon glyphicon-trash' })
 	  );
 	};
 

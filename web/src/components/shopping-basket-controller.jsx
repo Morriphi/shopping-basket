@@ -1,6 +1,7 @@
 const React = require('react');
-const DeleteButton = require('./delete-button');
-const AddButton = require('./add-button');
+const Product = require('./product');
+const Divider = require('./divider');
+const BasketItem = require('./basket-item');
 
 const Application = React.createClass({
   render () {
@@ -15,76 +16,20 @@ const Application = React.createClass({
       <div className='row'>
         <div className='col-md-6'>
           <h2><i className='glyphicon glyphicon-apple'></i> Products</h2>
-          <div className='row'>
-            <div className='col-md-6'>
-              <h3>Milk </h3></div>
-            <div className='col-md-4'>
-              <h3>£1.95 </h3></div>
-            <div className='col-md-2'>
-              <AddButton />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-12'>
-              <hr />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-6'>
-              <h3>Bread</h3></div>
-            <div className='col-md-4'>
-              <h3>£0.80</h3></div>
-            <div className='col-md-2'>
-              <AddButton />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-12'>
-              <hr />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-6'>
-              <h3>Butter </h3></div>
-            <div className='col-md-4'>
-              <h3>£1.20 </h3></div>
-            <div className='col-md-2'>
-              <AddButton />
-            </div>
-          </div>
+          <Product name='Milk' price={80} />
+          <Divider />
+          <Product name='Bread' price={140} />
+          <Divider />
+          <Product name='Butter' price={200} />
         </div>
         <div className='col-md-6'>
           <h2 className='text-left'><i className='glyphicon glyphicon-shopping-cart'></i> Basket</h2>
-          <div className='row'>
-            <div className='col-md-6'>
-              <h3>Milk </h3></div>
-            <div className='col-md-4'>
-              <h3>1 </h3></div>
-            <div className='col-md-2'>
-              <DeleteButton />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-12'>
-              <hr />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-6'>
-              <h3>Butter </h3></div>
-            <div className='col-md-4'>
-              <h3>2 </h3></div>
-            <div className='col-md-2'>
-              <DeleteButton />
-            </div>
-          </div>
+          <BasketItem name='Milk' quantity={1} />
+          <Divider />
+          <BasketItem name='Butter' quantity={2} />
         </div>
       </div>
-      <div className='row'>
-        <div className='col-md-12'>
-          <hr />
-        </div>
-      </div>
+      <Divider />
       <div className='row'>
         <div className='col-md-12'>
           <h2 className='text-nowrap text-right'>Total: £1.95</h2></div>

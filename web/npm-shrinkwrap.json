@@ -690,6 +690,11 @@
       "from": "react@>=15.2.0 <16.0.0",
       "resolved": "https://registry.npmjs.org/react/-/react-15.3.0.tgz"
     },
+    "react-currency": {
+      "version": "2.0.0",
+      "from": "react-currency@latest",
+      "resolved": "https://registry.npmjs.org/react-currency/-/react-currency-2.0.0.tgz"
+    },
     "react-dom": {
       "version": "15.3.0",
       "from": "react-dom@latest",
@@ -771,6 +776,16 @@
       "version": "1.3.0",
       "from": "statuses@>=1.3.0 <1.4.0",
       "resolved": "https://registry.npmjs.org/statuses/-/statuses-1.3.0.tgz"
+    },
+    "string-capitalize": {
+      "version": "1.0.1",
+      "from": "string-capitalize@>=1.0.1 <1.1.0",
+      "resolved": "https://registry.npmjs.org/string-capitalize/-/string-capitalize-1.0.1.tgz"
+    },
+    "string-humanize": {
+      "version": "1.0.0",
+      "from": "string-humanize@latest",
+      "resolved": "https://registry.npmjs.org/string-humanize/-/string-humanize-1.0.0.tgz"
     },
     "strip-ansi": {
       "version": "3.0.1",
