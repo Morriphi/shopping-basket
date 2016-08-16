@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run unit && npm run acceptance",
-    "unit": "mocha --compilers js:babel-core/register web/test/**/*.spec.js",
+    "unit": "mocha --compilers js:babel-core/register web/test/**/*.spec.js basket/test/**/*.spec.js",
     "acceptance": "./run-acceptance-tests.sh",
     "pretest": "npm run build",
     "build": "semistandard && webpack",

@@ -1,0 +1,18 @@
+{
+  "name": "shopping-basket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/shopping-basket-factory.js",
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "files": [
+    "src/**/*.js"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "must": "^0.13.2"
+  }
+}
