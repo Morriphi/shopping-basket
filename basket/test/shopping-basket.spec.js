@@ -29,6 +29,20 @@ describe('Shopping basket', () => {
     totalShouldBe(80);
   });
 
+  it('can remove items', () => {
+    add(1, 'butter');
+    remove(1, 'butter');
+
+    totalShouldBe(0);
+  });
+
+  it('cannot remove more items than added', () => {
+    add(1, 'butter');
+    remove(2, 'butter');
+
+    totalShouldBe(0);
+  });
+
   it('milk costs £1.15', () => {
     add(1, 'milk');
 
@@ -119,6 +133,12 @@ describe('Shopping basket', () => {
   function add (qty, item) {
     for (let i = 0; i < qty; i++) {
       basket.add(item);
+    }
+  }
+
+  function remove (qty, item) {
+    for (let i = 0; i < qty; i++) {
+      basket.remove(item);
     }
   }
 });

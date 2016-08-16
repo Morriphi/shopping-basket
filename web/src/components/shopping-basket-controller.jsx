@@ -2,8 +2,8 @@ const React = require('react');
 const Total = require('./total');
 const Product = require('./product');
 const Divider = require('./divider');
-const BasketItem = require('./basket-item');
 const Basket = require('shopping-basket');
+const BasketItem = require('./basket-item');
 
 const Application = React.createClass({
   getInitialState () {
@@ -17,13 +17,19 @@ const Application = React.createClass({
     this.setState({basket});
     this.forceUpdate();
   },
+  handleRemove (name) {
+    const basket = this.state.basket;
+    basket.remove(name);
+    this.setState({basket});
+    this.forceUpdate();
+  },
   render () {
     const renderedProducts = Basket.products.map((name, price) => {
       return <ProductWithDivider key={`product_${name}`} name={name} price={price} onAdd={this.handleAdd} />;
     });
 
     const renderedBasket = this.state.basket.map((name, quantity) => {
-      return <BasketItemWithDivider key={`item_${name}`} name={name} quantity={quantity} />;
+      return <BasketItemWithDivider key={`item_${name}`} name={name} quantity={quantity} onRemove={this.handleRemove} />;
     });
 
     return (<div className='container'>

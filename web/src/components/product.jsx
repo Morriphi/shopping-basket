@@ -18,7 +18,7 @@ const Product = React.createClass({
         <h3><Currency symbol='£' value={this.props.price} /></h3></div>
       <div className='col-md-2'>
         <AddButton target={this.props.name}
-          onClick={this.props.onAdd.bind(null, this.props.name, this.props.price)} />
+          onClick={this.props.onAdd.bind(null, this.props.name)} />
       </div>
     </div>);
   }

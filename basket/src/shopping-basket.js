@@ -9,6 +9,12 @@ module.exports = (products) => {
     basket[item].qty++;
   };
 
+  obj.remove = item => {
+    if (basket[item] && basket[item].qty > 0) {
+      basket[item].qty--;
+    }
+  };
+
   obj.map = (f) => {
     const result = [];
     for (var item in basket) {

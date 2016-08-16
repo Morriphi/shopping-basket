@@ -6,6 +6,11 @@ const shallow = require('enzyme').shallow;
 const DeleteButton = require('../../src/components/delete-button');
 
 describe('Delete button', () => {
+  it('should have target selector', () => {
+    const component = shallow(<DeleteButton target='product' />);
+    expect(component.find('button').hasClass('btn-remove-product-from-basket')).to.equal(true);
+  });
+
   it('should be styled', () => {
     const component = shallow(<DeleteButton />);
     expect(component.find('button').hasClass('btn')).to.equal(true);

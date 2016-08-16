@@ -21471,8 +21471,8 @@
 	var Total = __webpack_require__(176);
 	var Product = __webpack_require__(178);
 	var Divider = __webpack_require__(182);
-	var BasketItem = __webpack_require__(183);
-	var Basket = __webpack_require__(185);
+	var Basket = __webpack_require__(183);
+	var BasketItem = __webpack_require__(188);
 
 	var Application = React.createClass({
 	  displayName: 'Application',
@@ -21487,6 +21487,12 @@
 	    this.setState({ basket: basket });
 	    this.forceUpdate();
 	  },
+	  handleRemove: function handleRemove(name) {
+	    var basket = this.state.basket;
+	    basket.remove(name);
+	    this.setState({ basket: basket });
+	    this.forceUpdate();
+	  },
 	  render: function render() {
 	    var _this = this;
 
@@ -21495,7 +21501,7 @@
 	    });
 
 	    var renderedBasket = this.state.basket.map(function (name, quantity) {
-	      return React.createElement(BasketItemWithDivider, { key: 'item_' + name, name: name, quantity: quantity });
+	      return React.createElement(BasketItemWithDivider, { key: 'item_' + name, name: name, quantity: quantity, onRemove: _this.handleRemove });
 	    });
 
 	    return React.createElement(
@@ -21646,7 +21652,7 @@
 	        'div',
 	        { className: 'col-md-2' },
 	        React.createElement(AddButton, { target: this.props.name,
-	          onClick: this.props.onAdd.bind(null, this.props.name, this.props.price) })
+	          onClick: this.props.onAdd.bind(null, this.props.name) })
 	      )
 	    );
 	  }
@@ -21752,75 +21758,17 @@
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var humanize = __webpack_require__(180);
-	var DeleteButton = __webpack_require__(184);
-
-	module.exports = function (props) {
-	  return React.createElement(
-	    'div',
-	    { className: 'row' },
-	    React.createElement(
-	      'div',
-	      { className: 'col-md-6' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        humanize(props.name)
-	      )
-	    ),
-	    React.createElement(
-	      'div',
-	      { className: 'col-md-4' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        props.quantity
-	      )
-	    ),
-	    React.createElement(
-	      'div',
-	      { className: 'col-md-2' },
-	      React.createElement(DeleteButton, null)
-	    )
-	  );
-	};
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var React = __webpack_require__(1);
-
-	module.exports = function (props) {
-	  return React.createElement(
-	    'button',
-	    _extends({ className: 'btn btn-danger btn-lg', type: 'button' }, props),
-	    React.createElement('i', { className: 'glyphicon glyphicon-trash' })
-	  );
-	};
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const products = __webpack_require__(186);
-	const basket = __webpack_require__(189);
+	const products = __webpack_require__(184);
+	const basket = __webpack_require__(187);
 
 	module.exports = {basket: () => basket(products), products};
 
 
 /***/ },
-/* 186 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const offer = __webpack_require__(187);
+	const offer = __webpack_require__(185);
 
 	const _100_PERCENT = () => 0;
 	const _50_PERCENT = (p) => p / 2;
@@ -21847,10 +21795,10 @@
 
 
 /***/ },
-/* 187 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const eligibleDiscounts = __webpack_require__(188);
+	const eligibleDiscounts = __webpack_require__(186);
 
 	module.exports = {none: (item, price, basket) => price * basket[item].qty, discountOf};
 
@@ -21881,7 +21829,7 @@
 
 
 /***/ },
-/* 188 */
+/* 186 */
 /***/ function(module, exports) {
 
 	module.exports = (eligibleQuantity, eligibleProduct, item, basket) => {
@@ -21900,7 +21848,7 @@
 
 
 /***/ },
-/* 189 */
+/* 187 */
 /***/ function(module, exports) {
 
 	module.exports = (products) => {
@@ -21912,6 +21860,12 @@
 	      basket[item] = {qty: 0};
 	    }
 	    basket[item].qty++;
+	  };
+
+	  obj.remove = item => {
+	    if (basket[item] && basket[item].qty > 0) {
+	      basket[item].qty--;
+	    }
 	  };
 
 	  obj.map = (f) => {
@@ -21933,6 +21887,75 @@
 	  return obj;
 	};
 
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var humanize = __webpack_require__(180);
+	var DeleteButton = __webpack_require__(189);
+
+	var BasketItem = React.createClass({
+	  displayName: 'BasketItem',
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      onRemove: function onRemove() {}
+	    };
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'row' },
+	      React.createElement(
+	        'div',
+	        { className: 'col-md-6' },
+	        React.createElement(
+	          'h3',
+	          null,
+	          humanize(this.props.name)
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'col-md-4' },
+	        React.createElement(
+	          'h3',
+	          null,
+	          this.props.quantity
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'col-md-2' },
+	        React.createElement(DeleteButton, { target: this.props.name,
+	          onClick: this.props.onRemove.bind(null, this.props.name) })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = BasketItem;
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(1);
+
+	module.exports = function (props) {
+	  return React.createElement(
+	    'button',
+	    _extends({ className: 'btn btn-danger btn-lg btn-remove-' + props.target + '-from-basket', type: 'button' }, props),
+	    React.createElement('i', { className: 'glyphicon glyphicon-trash' })
+	  );
+	};
 
 /***/ }
 /******/ ]);
