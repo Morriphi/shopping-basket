@@ -3,9 +3,29 @@ const Total = require('./total');
 const Product = require('./product');
 const Divider = require('./divider');
 const BasketItem = require('./basket-item');
+const Basket = require('shopping-basket');
 
 const Application = React.createClass({
+  getInitialState () {
+    return {
+      basket: Basket.basket()
+    };
+  },
+  handleAdd (name) {
+    const basket = this.state.basket;
+    basket.add(name);
+    this.setState({basket});
+    this.forceUpdate();
+  },
   render () {
+    const renderedProducts = Basket.products.map((name, price) => {
+      return <ProductWithDivider key={`product_${name}`} name={name} price={price} onAdd={this.handleAdd} />;
+    });
+
+    const renderedBasket = this.state.basket.map((name, quantity) => {
+      return <BasketItemWithDivider key={`item_${name}`} name={name} quantity={quantity} />;
+    });
+
     return (<div className='container'>
       <div className='row'>
         <div className='col-md-12'>
@@ -17,23 +37,29 @@ const Application = React.createClass({
       <div className='row'>
         <div className='col-md-6'>
           <h2><i className='glyphicon glyphicon-apple'></i> Products</h2>
-          <Product name='Milk' price={80} />
-          <Divider />
-          <Product name='Bread' price={140} />
-          <Divider />
-          <Product name='Butter' price={200} />
+          {renderedProducts}
         </div>
         <div className='col-md-6'>
           <h2 className='text-left'><i className='glyphicon glyphicon-shopping-cart'></i> Basket</h2>
-          <BasketItem name='Milk' quantity={1} />
-          <Divider />
-          <BasketItem name='Butter' quantity={2} />
+          {renderedBasket}
         </div>
       </div>
       <Divider />
-      <Total value={195} />
+      <Total value={this.state.basket.total()} />
     </div>);
   }
 });
+
+const ProductWithDivider = (props) => (
+  <span>
+    <Product {... props} />
+    <Divider />
+  </span>);
+
+const BasketItemWithDivider = (props) => (
+  <span>
+    <BasketItem {... props} />
+    <Divider />
+  </span>);
 
 module.exports = Application;

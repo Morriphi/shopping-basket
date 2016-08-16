@@ -60,6 +60,14 @@ describe('Shopping basket', () => {
     totalShouldBe(195);
   });
 
+  it('bread, butter and milk cost £2.95', () => {
+    basket.add('bread');
+    basket.add('butter');
+    basket.add('milk');
+
+    totalShouldBe(295);
+  });
+
   describe('offers', () => {
     it('buy 2 butter and get a bread at 50% off', () => {
       add(2, 'butter');

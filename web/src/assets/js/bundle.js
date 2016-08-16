@@ -44,13 +44,16 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	global.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {}; // prevent react DevTools log
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(35);
 	var Application = __webpack_require__(175);
 
 	ReactDOM.render(React.createElement(Application, null), document.getElementById('app'));
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 1 */
@@ -21469,10 +21472,32 @@
 	var Product = __webpack_require__(178);
 	var Divider = __webpack_require__(182);
 	var BasketItem = __webpack_require__(183);
+	var Basket = __webpack_require__(185);
 
 	var Application = React.createClass({
 	  displayName: 'Application',
+	  getInitialState: function getInitialState() {
+	    return {
+	      basket: Basket.basket()
+	    };
+	  },
+	  handleAdd: function handleAdd(name) {
+	    var basket = this.state.basket;
+	    basket.add(name);
+	    this.setState({ basket: basket });
+	    this.forceUpdate();
+	  },
 	  render: function render() {
+	    var _this = this;
+
+	    var renderedProducts = Basket.products.map(function (name, price) {
+	      return React.createElement(ProductWithDivider, { key: 'product_' + name, name: name, price: price, onAdd: _this.handleAdd });
+	    });
+
+	    var renderedBasket = this.state.basket.map(function (name, quantity) {
+	      return React.createElement(BasketItemWithDivider, { key: 'item_' + name, name: name, quantity: quantity });
+	    });
+
 	    return React.createElement(
 	      'div',
 	      { className: 'container' },
@@ -21505,11 +21530,7 @@
 	            React.createElement('i', { className: 'glyphicon glyphicon-apple' }),
 	            ' Products'
 	          ),
-	          React.createElement(Product, { name: 'Milk', price: 80 }),
-	          React.createElement(Divider, null),
-	          React.createElement(Product, { name: 'Bread', price: 140 }),
-	          React.createElement(Divider, null),
-	          React.createElement(Product, { name: 'Butter', price: 200 })
+	          renderedProducts
 	        ),
 	        React.createElement(
 	          'div',
@@ -21520,16 +21541,32 @@
 	            React.createElement('i', { className: 'glyphicon glyphicon-shopping-cart' }),
 	            ' Basket'
 	          ),
-	          React.createElement(BasketItem, { name: 'Milk', quantity: 1 }),
-	          React.createElement(Divider, null),
-	          React.createElement(BasketItem, { name: 'Butter', quantity: 2 })
+	          renderedBasket
 	        )
 	      ),
 	      React.createElement(Divider, null),
-	      React.createElement(Total, { value: 195 })
+	      React.createElement(Total, { value: this.state.basket.total() })
 	    );
 	  }
 	});
+
+	var ProductWithDivider = function ProductWithDivider(props) {
+	  return React.createElement(
+	    'span',
+	    null,
+	    React.createElement(Product, props),
+	    React.createElement(Divider, null)
+	  );
+	};
+
+	var BasketItemWithDivider = function BasketItemWithDivider(props) {
+	  return React.createElement(
+	    'span',
+	    null,
+	    React.createElement(BasketItem, props),
+	    React.createElement(Divider, null)
+	  );
+	};
 
 	module.exports = Application;
 
@@ -21551,7 +21588,7 @@
 	      { className: 'col-md-12' },
 	      React.createElement(
 	        'h2',
-	        { className: 'text-nowrap text-right' },
+	        { className: 'text-nowrap text-right total' },
 	        'Total: ',
 	        React.createElement(Currency, { symbol: '£', value: props.value })
 	      )
@@ -21576,35 +21613,46 @@
 	var Currency = __webpack_require__(177);
 	var humanize = __webpack_require__(180);
 
-	module.exports = function (props) {
-	  return React.createElement(
-	    'div',
-	    { className: 'row' },
-	    React.createElement(
+	var Product = React.createClass({
+	  displayName: 'Product',
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      onAdd: function onAdd() {}
+	    };
+	  },
+	  render: function render() {
+	    return React.createElement(
 	      'div',
-	      { className: 'col-md-6' },
+	      { className: 'row' },
 	      React.createElement(
-	        'h3',
-	        null,
-	        humanize(props.name)
-	      )
-	    ),
-	    React.createElement(
-	      'div',
-	      { className: 'col-md-4' },
+	        'div',
+	        { className: 'col-md-6' },
+	        React.createElement(
+	          'h3',
+	          null,
+	          humanize(this.props.name)
+	        )
+	      ),
 	      React.createElement(
-	        'h3',
-	        null,
-	        React.createElement(Currency, { symbol: '£', value: props.price })
+	        'div',
+	        { className: 'col-md-4' },
+	        React.createElement(
+	          'h3',
+	          null,
+	          React.createElement(Currency, { symbol: '£', value: this.props.price })
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'col-md-2' },
+	        React.createElement(AddButton, { target: this.props.name,
+	          onClick: this.props.onAdd.bind(null, this.props.name, this.props.price) })
 	      )
-	    ),
-	    React.createElement(
-	      'div',
-	      { className: 'col-md-2' },
-	      React.createElement(AddButton, null)
-	    )
-	  );
-	};
+	    );
+	  }
+	});
+
+	module.exports = Product;
 
 /***/ },
 /* 179 */
@@ -21619,7 +21667,7 @@
 	module.exports = function (props) {
 	  return React.createElement(
 	    'button',
-	    _extends({ className: 'btn btn-primary btn-lg', type: 'button' }, props),
+	    _extends({ className: 'btn btn-primary btn-lg btn-add-' + props.target + '-to-basket', type: 'button' }, props),
 	    React.createElement('i', { className: 'glyphicon glyphicon-shopping-cart' })
 	  );
 	};
@@ -21757,6 +21805,134 @@
 	    React.createElement('i', { className: 'glyphicon glyphicon-trash' })
 	  );
 	};
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const products = __webpack_require__(186);
+	const basket = __webpack_require__(189);
+
+	module.exports = {basket: () => basket(products), products};
+
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const offer = __webpack_require__(187);
+
+	const _100_PERCENT = () => 0;
+	const _50_PERCENT = (p) => p / 2;
+
+	var products = {
+	  'butter': {price: 80, offer: offer.none},
+	  'bread': {price: 100, offer: offer.discountOf(_50_PERCENT).whenBuying(2, 'butter')},
+	  'milk': {price: 115, offer: offer.discountOf(_100_PERCENT).whenBuying(3, 'milk')}
+	};
+
+	function getPrice (item, basket) {
+	  return products[item] ? products[item].offer(item, products[item].price, basket) : 0;
+	}
+
+	function map (f) {
+	  const result = [];
+	  for (var product in products) {
+	    result.push(f(product, products[product].price));
+	  }
+	  return result;
+	}
+
+	module.exports = {getPrice, map};
+
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const eligibleDiscounts = __webpack_require__(188);
+
+	module.exports = {none: (item, price, basket) => price * basket[item].qty, discountOf};
+
+	function discountOf (unitPriceAfterDiscount) {
+	  return {
+	    whenBuying (quantity, product) {
+	      return priceCalculator.bind(null, quantity, product);
+	    }
+	  };
+
+	  function priceCalculator (eligibleQuantity, eligibleProduct, item, price, basket) {
+	    let discounts = eligibleDiscounts(eligibleQuantity, eligibleProduct, item, basket);
+
+	    let totalPrice = 0;
+
+	    for (var i = 0; i < basket[item].qty; i++) {
+	      if (discounts.available()) {
+	        totalPrice += unitPriceAfterDiscount(price);
+	        discounts.use();
+	      } else {
+	        totalPrice += price;
+	      }
+	    }
+
+	    return totalPrice;
+	  }
+	}
+
+
+/***/ },
+/* 188 */
+/***/ function(module, exports) {
+
+	module.exports = (eligibleQuantity, eligibleProduct, item, basket) => {
+	  let discounts = 0;
+
+	  if (eligibleProduct === item) {
+	    discounts = Math.floor(basket[item].qty / eligibleQuantity);
+	  } else if (basket[eligibleProduct]) {
+	    if (basket[eligibleProduct].qty >= eligibleQuantity) {
+	      discounts = Math.ceil(basket[eligibleProduct].qty / eligibleQuantity);
+	    }
+	  }
+
+	  return {available: () => discounts > 0, use: () => discounts--};
+	};
+
+
+/***/ },
+/* 189 */
+/***/ function(module, exports) {
+
+	module.exports = (products) => {
+	  const obj = {};
+	  const basket = {};
+
+	  obj.add = (item) => {
+	    if (!basket[item]) {
+	      basket[item] = {qty: 0};
+	    }
+	    basket[item].qty++;
+	  };
+
+	  obj.map = (f) => {
+	    const result = [];
+	    for (var item in basket) {
+	      result.push(f(item, basket[item].qty));
+	    }
+	    return result;
+	  };
+
+	  obj.total = () => {
+	    let t = 0;
+	    for (var item in basket) {
+	      t += products.getPrice(item, basket);
+	    }
+	    return t;
+	  };
+
+	  return obj;
+	};
+
 
 /***/ }
 /******/ ]);

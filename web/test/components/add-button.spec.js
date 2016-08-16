@@ -1,4 +1,4 @@
-/* global it, describe */
+/* global it, describe, global */
 
 const React = require('react');
 const expect = require('chai').expect;
@@ -6,6 +6,11 @@ const shallow = require('enzyme').shallow;
 const DeleteButton = require('../../src/components/add-button');
 
 describe('Add button', () => {
+  it('should have target selector', () => {
+    const component = shallow(<DeleteButton target='product' />);
+    expect(component.find('button').hasClass('btn-add-product-to-basket')).to.equal(true);
+  });
+
   it('should be styled', () => {
     const component = shallow(<DeleteButton />);
     expect(component.find('button').hasClass('btn')).to.equal(true);
