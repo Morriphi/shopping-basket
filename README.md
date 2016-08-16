@@ -11,8 +11,8 @@ The application was built using the following dependencies:
 Ensure the correct node version. If you're using NVM you can run:
 
  ```
-    $ cd shopping-basket
-    $ nvm use
+ $ cd shopping-basket
+ $ nvm use
  ```
 
 ### Running the application
