@@ -4,13 +4,27 @@ const _100_PERCENT = () => 0;
 const _50_PERCENT = (p) => p / 2;
 
 var products = {
-  'butter': {price: 80, offer: offer.none},
-  'bread': {price: 100, offer: offer.discountOf(_50_PERCENT).whenBuying(2, 'butter')},
-  'milk': {price: 115, offer: offer.discountOf(_100_PERCENT).whenBuying(3, 'milk')}
+  'butter': {price: 80, offers: offer.none},
+  'orange': {price: 60, offers: offer.none},
+  'bread': {price: 100, offers: offer.discountOf(_50_PERCENT).whenBuying(2, 'butter').or()
+    .discountOf(_100_PERCENT).whenBuying(2, 'orange').build()},
+  'milk': {price: 115, offers: offer.discountOf(_100_PERCENT).whenBuying(3, 'milk').build()}
 };
 
 function getPrice (item, basket) {
-  return products[item] ? products[item].offer(item, products[item].price, basket) : 0;
+  if (products[item]) {
+    const prices = [];
+
+    for (const offer of products[item].offers) {
+      if (offer.isApplicable(item, basket)) {
+        prices.push(offer.useOffer(item, products[item].price, basket));
+      }
+    }
+
+    return Math.min.apply(null, prices);
+  } else {
+    return 0;
+  }
 }
 
 function map (f) {

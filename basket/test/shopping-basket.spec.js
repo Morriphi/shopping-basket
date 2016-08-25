@@ -29,6 +29,12 @@ describe('Shopping basket', () => {
     totalShouldBe(80);
   });
 
+  it('oranges cost £0.60', () => {
+    add(1, 'orange');
+
+    totalShouldBe(60);
+  });
+
   it('can remove items', () => {
     add(1, 'butter');
     remove(1, 'butter');
@@ -80,50 +86,6 @@ describe('Shopping basket', () => {
     basket.add('milk');
 
     totalShouldBe(295);
-  });
-
-  describe('offers', () => {
-    it('buy 2 butter and get a bread at 50% off', () => {
-      add(2, 'butter');
-      add(1, 'bread');
-
-      totalShouldBe(210);
-    });
-
-    it('buy 2 butter and get a bread at 50% off in reverse order', () => {
-      add(1, 'bread');
-      add(2, 'butter');
-
-      totalShouldBe(210);
-    });
-
-    it('buy 3 butter and get a bread cost £2.90', () => {
-      add(3, 'butter');
-      add(1, 'bread');
-
-      totalShouldBe(290);
-    });
-
-    it('buy 4 butter and get 2 bread both at 50% off', () => {
-      add(2, 'butter');
-      add(1, 'bread');
-      add(2, 'butter');
-      add(1, 'bread');
-
-      totalShouldBe(420);
-    });
-
-    it('buy 3 milk get 4th milk free', () => {
-      add(4, 'milk');
-
-      totalShouldBe(345);
-    });
-
-    it('buy 6 milk get 7th and 8th milk free', () => {
-      add(8, 'milk');
-
-      totalShouldBe(690);
-    });
   });
 
   function totalShouldBe (expected) {

@@ -44,16 +44,13 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-
-	global.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {}; // prevent react DevTools log
+	'use strict';
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(35);
 	var Application = __webpack_require__(175);
 
 	ReactDOM.render(React.createElement(Application, null), document.getElementById('app'));
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 1 */
@@ -21774,13 +21771,27 @@
 	const _50_PERCENT = (p) => p / 2;
 
 	var products = {
-	  'butter': {price: 80, offer: offer.none},
-	  'bread': {price: 100, offer: offer.discountOf(_50_PERCENT).whenBuying(2, 'butter')},
-	  'milk': {price: 115, offer: offer.discountOf(_100_PERCENT).whenBuying(3, 'milk')}
+	  'butter': {price: 80, offers: offer.none},
+	  'orange': {price: 60, offers: offer.none},
+	  'bread': {price: 100, offers: offer.discountOf(_50_PERCENT).whenBuying(2, 'butter').or()
+	    .discountOf(_100_PERCENT).whenBuying(2, 'orange').build()},
+	  'milk': {price: 115, offers: offer.discountOf(_100_PERCENT).whenBuying(3, 'milk').build()}
 	};
 
 	function getPrice (item, basket) {
-	  return products[item] ? products[item].offer(item, products[item].price, basket) : 0;
+	  if (products[item]) {
+	    const prices = [];
+
+	    for (const offer of products[item].offers) {
+	      if (offer.isApplicable(item, basket)) {
+	        prices.push(offer.useOffer(item, products[item].price, basket));
+	      }
+	    }
+
+	    return Math.min.apply(null, prices);
+	  } else {
+	    return 0;
+	  }
 	}
 
 	function map (f) {
@@ -21800,31 +21811,57 @@
 
 	const eligibleDiscounts = __webpack_require__(186);
 
-	module.exports = {none: (item, price, basket) => price * basket[item].qty, discountOf};
-
 	function discountOf (unitPriceAfterDiscount) {
-	  return {
-	    whenBuying (quantity, product) {
-	      return priceCalculator.bind(null, quantity, product);
-	    }
+	  return builder(unitPriceAfterDiscount);
+	}
+
+	const none = {isApplicable: (basket) => true, useOffer: (item, price, basket) => price * basket[item].qty};
+
+	function builder (unitPriceAfterDiscount) {
+	  const obj = {};
+
+	  const offers = [];
+	  const discounts = [unitPriceAfterDiscount];
+
+	  obj.discountOf = (unitPriceAfterDiscount) => {
+	    discounts.push(unitPriceAfterDiscount);
+	    return obj;
 	  };
 
-	  function priceCalculator (eligibleQuantity, eligibleProduct, item, price, basket) {
-	    let discounts = eligibleDiscounts(eligibleQuantity, eligibleProduct, item, basket);
+	  obj.whenBuying = (quantity, product) => {
+	    offers.push({
+	      isApplicable: (item, basket) => eligibleDiscounts(quantity, product, item, basket).available(),
+	      useOffer: priceCalculator.bind(null, discounts[offers.length], quantity, product)});
+	    return obj;
+	  };
 
-	    let totalPrice = 0;
+	  obj.or = () => obj;
 
-	    for (var i = 0; i < basket[item].qty; i++) {
-	      if (discounts.available()) {
-	        totalPrice += unitPriceAfterDiscount(price);
-	        discounts.use();
-	      } else {
-	        totalPrice += price;
-	      }
+	  obj.build = () => {
+	    offers.push(none);
+	    return offers;
+	  };
+
+	  return obj;
+	}
+
+	module.exports = {none: [none], discountOf};
+
+	function priceCalculator (unitPriceAfterDiscount, eligibleQuantity, eligibleProduct, item, price, basket) {
+	  let discounts = eligibleDiscounts(eligibleQuantity, eligibleProduct, item, basket);
+
+	  let totalPrice = 0;
+
+	  for (var i = 0; i < basket[item].qty; i++) {
+	    if (discounts.available()) {
+	      totalPrice += unitPriceAfterDiscount(price);
+	      discounts.use();
+	    } else {
+	      totalPrice += price;
 	    }
-
-	    return totalPrice;
 	  }
+
+	  return totalPrice;
 	}
 
 

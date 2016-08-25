@@ -1,28 +1,54 @@
 const eligibleDiscounts = require('./discounts');
 
-module.exports = {none: (item, price, basket) => price * basket[item].qty, discountOf};
-
 function discountOf (unitPriceAfterDiscount) {
-  return {
-    whenBuying (quantity, product) {
-      return priceCalculator.bind(null, quantity, product);
-    }
+  return builder(unitPriceAfterDiscount);
+}
+
+const none = {isApplicable: (basket) => true, useOffer: (item, price, basket) => price * basket[item].qty};
+
+function builder (unitPriceAfterDiscount) {
+  const obj = {};
+
+  const offers = [];
+  const discounts = [unitPriceAfterDiscount];
+
+  obj.discountOf = (unitPriceAfterDiscount) => {
+    discounts.push(unitPriceAfterDiscount);
+    return obj;
   };
 
-  function priceCalculator (eligibleQuantity, eligibleProduct, item, price, basket) {
-    let discounts = eligibleDiscounts(eligibleQuantity, eligibleProduct, item, basket);
+  obj.whenBuying = (quantity, product) => {
+    offers.push({
+      isApplicable: (item, basket) => eligibleDiscounts(quantity, product, item, basket).available(),
+      useOffer: priceCalculator.bind(null, discounts[offers.length], quantity, product)});
+    return obj;
+  };
 
-    let totalPrice = 0;
+  obj.or = () => obj;
 
-    for (var i = 0; i < basket[item].qty; i++) {
-      if (discounts.available()) {
-        totalPrice += unitPriceAfterDiscount(price);
-        discounts.use();
-      } else {
-        totalPrice += price;
-      }
+  obj.build = () => {
+    offers.push(none);
+    return offers;
+  };
+
+  return obj;
+}
+
+module.exports = {none: [none], discountOf};
+
+function priceCalculator (unitPriceAfterDiscount, eligibleQuantity, eligibleProduct, item, price, basket) {
+  let discounts = eligibleDiscounts(eligibleQuantity, eligibleProduct, item, basket);
+
+  let totalPrice = 0;
+
+  for (var i = 0; i < basket[item].qty; i++) {
+    if (discounts.available()) {
+      totalPrice += unitPriceAfterDiscount(price);
+      discounts.use();
+    } else {
+      totalPrice += price;
     }
-
-    return totalPrice;
   }
+
+  return totalPrice;
 }
