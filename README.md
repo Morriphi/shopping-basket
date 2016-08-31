@@ -22,7 +22,16 @@ Run the application using:
 ```
 $ npm run web
 ```
-[This will run the application on port 3000](http://localhost:3000/)
+This will run the application on port [3000](http://localhost:3000/)
+
+### Running multiple application nodes
+
+Run the application using:
+
+```
+$ ./run-load-balanced.sh
+```
+This will run three application nodes proxied through nginx on port [3000](http://localhost:3000/)
 
 ### Testing the application
 

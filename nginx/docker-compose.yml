@@ -1,0 +1,33 @@
+nginx:
+  build: .
+  links:
+    - web1
+    - web2
+    - web3
+  ports:
+    - "3000:80"
+  command: nginx -g 'daemon off;'
+
+web1:
+  build: ../web/
+  environment:
+    - PORT=80
+  volumes:
+    - ../web:/app
+  command: node index.js
+
+web2:
+  build: ../web/
+  environment:
+    - PORT=80
+  volumes:
+    - ../web:/app
+  command: node index.js
+
+web3:
+  build: ../web/
+  environment:
+    - PORT=80
+  volumes:
+    - ../web:/app
+  command: node index.js
